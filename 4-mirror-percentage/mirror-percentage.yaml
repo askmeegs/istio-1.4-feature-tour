@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: frontend-mirror-percent
+spec:
+  hosts:
+    - productcatalogservice
+  http:
+  - route:
+    - destination:
+        host: productcatalogservice
+        subset: v1
+      weight: 100
+    mirror:
+      host: productcatalogservice
+      subset: v2
+    mirror_percent: 40
